@@ -1,9 +1,14 @@
 import { fromEvent } from "rxjs";
+import { of } from "rxjs";
+import { map, filter } from "rxjs/operators";
 
 const button = document.getElementById("myButton");
 
+// OBSERVABLES
 const myObservable = fromEvent(button, "click");
 
+// OBSERVEES/SUBSCRIBER, etc
+// unicasting
 const subscription = myObservable.subscribe(event => {
   console.log("I was clicked");
   console.log(event);
@@ -22,12 +27,21 @@ const secondSubscription = myObservable.subscribe({
   complete: () => console.log("complete!")
 });
 
-import { of } from "rxjs";
-//import { map } from "rxjs/operators";
-//
-//// `of` allows you to deliver values sequentially
-//const dataSource = of(1, 2, 3, 4, 5);
-//
-//const subscription = dataSource
-//	.pip(map(value => value + 1))
-//	.subscribe(value => console.log(value));
+// OPERATORS
+// `of` allows you to deliver values sequentially
+const dataSource = of(1, 2, 3, 4, 5);
+const mappedSubscription = dataSource
+  .pipe(map(value => value * 2))
+  .subscribe(value => console.log(value));
+
+const filteredSubscription = dataSource
+  .pipe(filter(value => value >= 2))
+  .subscribe(value => console.log(value));
+
+// Types of operators
+// * Creation: of, from, fromEvent
+// * Combination: combineLatest, concat, merge, etc.
+// * Transformation: map, concatMap, mergeMap, scan, etc.
+// * Filtering: filter, take, etc.
+// * Error Handling: catchError
+// * Multicasting: shareReplay
