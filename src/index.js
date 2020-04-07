@@ -3,6 +3,8 @@ import { of } from "rxjs";
 import { map, filter } from "rxjs/operators";
 import { Subject, AsyncSubject, BehaviorSubject, ReplaySubject } from "rxjs";
 
+import "./merge-all-example";
+
 const button = document.getElementById("myButton");
 
 // =====================================
